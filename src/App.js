@@ -1,29 +1,86 @@
-import React from "react";
+import React,{useState} from "react";
 import "./style.css";
 import styled from 'styled-components';
 import {Howl, Howler} from 'howler';
-const audioClips = [
-  {}
-]
 
+const audioClips = [
+  {src:       'http://commondatastorage.googleapis.com/codeskulptor-assets/week7-bounce.m4a',
+  label: 'Boink',
+  key: 'Q'
+},
+{
+  src: 'http://commondatastorage.googleapis.com/codeskulptor-assets/jump.ogg',
+  label: 'Jump',
+  key: 'W'
+},
+{
+  src:
+    'http://commondatastorage.googleapis.com/codeskulptor-assets/Evillaugh.ogg',
+  label: 'Scream',
+  key: 'E'
+},
+{
+  src:
+    'http:commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a',
+  label: 'Bring',
+  key: 'A'
+},
+{
+  src:
+    'http://commondatastorage.googleapis.com/codeskulptor-assets/week7-button.m4a',
+  label: 'Button',
+  key: 'S'
+},
+{
+  src:
+    'http://commondatastorage.googleapis.com/codeskulptor-assets/Collision8-Bit.ogg',
+  label: 'Collision',
+  key: 'D'
+},
+{
+  src:
+    'http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_hit.wav',
+  label: 'Alien',
+  key: 'Z'
+},
+{
+  src:
+    'http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/alien_shoot.wav',
+  label: 'Alien Pew',
+  key: 'X'
+},
+{
+  src:
+    'http://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/explosion_02.wav',
+  label: 'Explosion',
+  key: 'C'
+}
+];
+1;
 export default function App() {
-  var sound = new Howl({
-    src: ['sound.webm', 'sound.mp3']
-  });
+  const [display, setDisplay] = useState('Press a key');
+  function playSound(soundTrack, label) {
+    let track = new Howl({
+      src: [soundTrack]
+    });
+    track.play();
+    setDisplay(label);
+  }
   return (
     <Wrapper>
       <Container>
         <Display>Display </Display>
         <Keys>
-          <Key onClick= {()=> sound.play()}>Q</Key>
-          <Key>W</Key>
-          <Key>E</Key>
-          <Key>A</Key>
-          <Key>S</Key>
-          <Key>D</Key>
-          <Key>Z</Key>
-          <Key>X</Key>
-          <Key>C</Key>
+        {audioClips.map(soundObj => {
+            let soundKey = soundObj.key;
+            let label = soundObj.label;
+            let soundTrack = soundObj.src;
+            let sound = new Howl({
+              src: [soundTrack]
+            });
+            return <Key onClick={() => sound.play()}>{soundKey}</Key>;
+          })}
+ 
           
         </Keys>
       </Container>
